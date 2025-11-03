@@ -2,8 +2,9 @@
 import { Mastra } from '@mastra/core/mastra';
 import { PinoLogger } from '@mastra/loggers';
 import { LibSQLStore } from '@mastra/libsql';
-import { weatherWorkflow } from './workflows/weather-workflow';
-import { weatherAgent } from './agents/weather-agent';
+import { weatherWorkflow } from './workflows/weather-workflow.js';
+import { weatherAgent } from './agents/weather-agent.js';
+import { a2aAgentRoute } from '../mastra/routes/a2a-agent-route.js';
 
 
 export const mastra = new Mastra({
@@ -25,4 +26,14 @@ export const mastra = new Mastra({
     // Enables DefaultExporter and CloudExporter for AI tracing
     default: { enabled: true }, 
   },
+
+   server: {
+    build: {
+      openAPIDocs: true,
+      swaggerUI: true,
+    },
+    apiRoutes: [
+      a2aAgentRoute
+    ]
+  }
 });
